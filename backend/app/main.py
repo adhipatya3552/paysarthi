@@ -34,8 +34,11 @@ app.include_router(assistant.router)
 
 @app.post("/api/login")
 def login(body: auth.LoginIn):
+    from fastapi import HTTPException
+    from .config import DEMO_PASSWORD
+    if not DEMO_PASSWORD:
+        raise HTTPException(503, "demo password not configured on server")
     if not auth.check_password(body.password):
-        from fastapi import HTTPException
         raise HTTPException(401, "wrong password")
     return {"token": auth.mint_token()}
 

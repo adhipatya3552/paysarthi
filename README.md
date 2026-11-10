@@ -72,6 +72,12 @@ Create the database (MariaDB): `CREATE DATABASE paysarthi CHARACTER SET utf8mb4;
 Tables auto-create on backend start. For SQLite instead, set in `.env`:
 `DATABASE_URL=sqlite:///./local.db` (verified: `python backend/check_sqlite.py`).
 
+**Demo password (fail-closed):** the backend refuses login and all app APIs
+with HTTP 503 until `DEMO_PASSWORD` is set in `.env` — there is no open mode.
+Judges: set any `DEMO_PASSWORD` locally and share that value (never the `.env`
+file) with anyone you admit to the demo. The PayPal webhook endpoint is
+unaffected: it authenticates via PayPal signatures, not this password.
+
 ## Run
 
 ```powershell
@@ -94,6 +100,9 @@ Open http://localhost:3000 → log in with `DEMO_PASSWORD` → dashboard.
 .\.venv\Scripts\python.exe backend/test_payload.py         # payment_terms parity: 9
 .\.venv\Scripts\python.exe backend/test_webhooks.py        # webhook edge cases: 5
 .\.venv\Scripts\python.exe backend/test_integration.py     # gate + history intact
+.\.venv\Scripts\python.exe backend/check_auth_matrix.py   # fail-closed matrix (9) + SQLite app boot
+.\.venv\Scripts\python.exe backend/test_auth_unit.py      # auth helpers direct (7)
+.\.venv\Scripts\python.exe backend/check_sqlite.py        # SQLite schema/CRUD smoke test
 cd frontend; npm run build
 ```
 

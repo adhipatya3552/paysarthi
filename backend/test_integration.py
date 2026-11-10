@@ -47,10 +47,10 @@ try:
         paypal_payment_id="1CA8182964133384M").first()
     check("history_payment_present", pay is not None and float(pay.amount) == 60.00,
           getattr(pay, "paypal_payment_id", None))
-    check("no_test_rows_leaked",
+    check("history_ledger_intact",
           db.query(models.Invoice).count() == 1
           and db.query(models.Payment).count() == 1,
-          "invoices/payments unchanged; extra agreements (if any) are your "
+          "the $60 invoice + payment are unchanged; extra agreements (if any) are your "
           "manual browser-test rows, kept intentionally")
     db.close()
 finally:

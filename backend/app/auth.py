@@ -2,7 +2,8 @@
 only, never sent to the frontend bundle). POST /api/login {password} mints a
 random in-memory bearer token; protected routes require it. The PayPal
 webhook endpoint is NOT behind this gate (it uses PayPal signatures).
-If DEMO_PASSWORD is empty, the gate is open (local dev convenience)."""
+Fail-closed: with DEMO_PASSWORD empty, login and protected routes refuse
+(503) instead of opening the app to anyone. Set DEMO_PASSWORD in .env."""
 import secrets
 from fastapi import Depends, HTTPException
 from fastapi.security import HTTPBearer, HTTPAuthorizationCredentials
@@ -25,13 +26,13 @@ def mint_token() -> str:
 
 def check_password(pw: str) -> bool:
     if not DEMO_PASSWORD:
-        return True  # dev mode: open gate allows any demo password
+        return False  # fail-closed: no password configured, no login
     return secrets.compare_digest(pw, DEMO_PASSWORD)
 
 
 def require_demo(creds: HTTPAuthorizationCredentials = Depends(_bearer)):
     if not DEMO_PASSWORD:
-        return True  # dev mode: gate open until a password is configured
+        raise HTTPException(503, "demo password not configured on server")
     if not creds or creds.credentials not in _tokens:
         raise HTTPException(401, "demo login required")
     return True
