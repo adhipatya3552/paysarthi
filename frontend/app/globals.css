@@ -1,0 +1,35 @@
+@import "tailwindcss";
+
+/* PaySarthi design tokens. Light-locked theme (explicit brief): cream page,
+   white cards, deep navy brand surfaces, electric-blue actions, gold reserved
+   for the brand mark and tiny highlights. Radius rule: buttons pill,
+   cards 16px, inputs 12px. */
+@theme {
+  --color-navy-950: #0a1230;
+  --color-navy-900: #101b45;
+  --color-navy-800: #1a2763;
+  --color-cream-50: #f7f2e9;
+  --color-cream-100: #f0e8d8;
+  --color-gold-500: #c9a227;
+  --color-gold-600: #a9861d;
+  --color-brand-700: #1d4ed8;
+  --color-brand-600: #2563eb;
+  --font-sans: var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif;
+  --font-mono: var(--font-geist-mono), ui-monospace, monospace;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background: var(--color-cream-50);
+  color: #0f1e3d;
+  font-family: var(--font-sans);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+}
