@@ -16,3 +16,4 @@ server.err.log
 __pycache__/
 *.pyc
 .DS_Store
+DEVPOST.md
