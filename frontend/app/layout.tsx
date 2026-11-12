@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { Geist, Geist_Mono } from "next/font/google";
+import LogoutButton from "@/components/logout";
 import "./globals.css";
 
 const geistSans = Geist({ variable: "--font-geist-sans", subsets: ["latin"] });
@@ -22,7 +23,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     <html lang="en">
       <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
         <div className="min-h-screen lg:flex">
-          <aside className="bg-navy-950 text-white lg:w-64 lg:min-h-screen lg:sticky lg:top-0 shrink-0">
+          <aside className="bg-navy-950 text-white lg:w-64 lg:min-h-screen lg:sticky lg:top-0 shrink-0 lg:flex lg:flex-col">
             <div className="px-6 pt-6 pb-5 border-b border-white/10">
               <div className="flex items-center gap-2.5">
                 <span className="flex h-9 w-9 items-center justify-center rounded-xl bg-gold-500 text-navy-950 font-bold text-lg">
@@ -50,7 +51,10 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                 </Link>
               ))}
             </nav>
-            <div className="hidden lg:block px-6 py-4 mt-auto text-[11px] text-white/40">
+            <div className="hidden lg:block px-3 pb-2 mt-auto">
+              <LogoutButton />
+            </div>
+            <div className="hidden lg:block px-6 py-4 text-[11px] text-white/40">
               PayPal Sandbox + AI
             </div>
           </aside>

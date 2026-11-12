@@ -85,8 +85,8 @@ export default function Dashboard() {
           const S = STAT_STYLE[c.i];
           const Icon = S.icon;
           return (
-            <Reveal key={c.label} delay={k * 0.07}>
-              <Card className="p-5">
+            <Reveal key={c.label} delay={k * 0.07} className="h-full">
+              <Card className="p-5 h-full">
                 <div className="flex items-center gap-2">
                   <span className={`p-1.5 rounded-lg ${S.tint}`}>
                     <Icon size={18} weight="duotone" />
@@ -100,13 +100,11 @@ export default function Dashboard() {
             </Reveal>
           );
         })}
-        <Reveal delay={0.21}>
-          <Card className="p-5 bg-navy-950 !border-navy-950 text-white">
-            <span className="text-xs font-semibold text-white/60">ACTIVE PROJECTS</span>
-            <div className="text-[28px] font-bold mt-2">{d.active_projects}</div>
-            <div className="text-sm text-white/60 mt-1">{d.invoice_count} invoices total</div>
-          </Card>
-        </Reveal>
+        <div className="rounded-2xl p-5 bg-navy-950 border border-navy-950 shadow-[0_1px_2px_rgba(16,27,69,0.05),0_8px_24px_-12px_rgba(16,27,69,0.12)] text-white">
+          <span className="text-xs font-semibold text-white/60">ACTIVE PROJECTS</span>
+          <div className="text-[28px] font-bold mt-2">{d.active_projects}</div>
+          <div className="text-sm text-white/60 mt-1">{d.invoice_count} invoices total</div>
+        </div>
       </div>
 
       <Reveal>
